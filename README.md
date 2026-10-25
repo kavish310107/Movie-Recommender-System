@@ -2,6 +2,25 @@
 
 A content-based movie recommendation system built using Python and Machine Learning. The project analyzes movie metadata to recommend movies similar to a user's selected movie.
 
+The system recommends movies similar to a user's selected movie by analyzing movie metadata, transforming textual features into numerical vectors, and calculating similarity scores between movies.
+
+The project demonstrates data preprocessing, feature engineering, text vectorization, similarity-based ranking, and the development of a machine learning application.
+
+
+## 📖 Project Overview
+
+Movie recommendation platforms help users discover movies based on their interests and viewing preferences.
+
+This project implements a content-based filtering recommendation system that identifies movies with similar characteristics based on their metadata.
+
+Instead of predicting movie ratings or training a conventional supervised classification model, the system represents movies as numerical vectors and calculates their similarity.
+
+When a user selects a movie, the system ranks other movies according to their similarity scores and returns the most relevant recommendations.
+
+The application combines a Python-based recommendation engine with a Streamlit interface, allowing users to interact with the system through a web browser.
+
+
+
 ## 🚀 Features
 
 - **Content-Based Filtering:** Recommends movies based on similarities in their metadata.

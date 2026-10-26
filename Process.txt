@@ -1,0 +1,39 @@
+THIS FILE CONTAINS THE PROCESS OF HOW THIS PROJECT WAS CREATED
+
+AIM - The aim of this project was to create a movie recommender system in which when the user enters a movie name, the website recommends the user movies similar to the one which was entered.
+This needed to be done using the tmdb_5000 movie dataset from kaggle by using machine learning concepts.
+
+STEP-WISE PROGRESS
+
+--Initially I loaded the 2 datasets csv from kaggle.
+-- Then I performed EDA on it and started Data Cleaning
+-- First, In the tmdb_5000_movies csv , this dataset contained lot of columns which were not required by us for this current project. So, I dropped all the useless columns , keeping only the id,title,overview,genre and keywords columns.
+-- Then , for ease of use in model training , I merged both the movies.csv and credits.csv datasets into a single dataset (i.e updated movies.csv ) based on the id columns of movies.csv and movie_id column of credits.csv.
+-- Next, I saw that the overview,cast,crew,genres and keywords columns consisted of strings which were in the form of list of dictionaries. So I needed to convert it to actual list of dictionaries from strings.
+-- To do this, I used the ast.literal_eval function.
+-- Now , all th columns, were in the form of list of dictionaries, but I did not need the whole dictionaries for every row of every column. 
+-- So , I created functions to extract : 
+    1. value for "name" key in keywords, cast and genres columns
+    2. value for "job" key in crew where job == Director
+    3. overview col converted to list only
+-- Now I had the id , title columns, along with the overview,genres,cast,crew,keywords in list form.
+   So, I merged overview,genres,cast,crew,keywords columns into a single column called Tags and dropped the original columns
+-- Then, on the Tag column , cleaned the data so that all lists are merged properly , all full names are without spaces and all words are in lower case, so that it is easier to vectorize.
+-- Converted to string again
+-- This was data cleaning
+
+
+-- In the preprocessing.py file, I perfromed stemming and vectorization
+-- first, in stemming converted all tag words to their base form using PorterStemmer()
+-- Then applied text vectorization.
+   1. merged tags of all rows into a single string. Counted the occurence of words in this string and picked top k=5000 words
+   2. For this k words , counted how many times each word occur in each row --> rows*k matrix
+   3. For this matrix, performed vectorization.
+   4. Each row of this matrix is a vector in n dimensions. 
+   5.for each row , calculated how similar each row/vector is to every other row usign cosine distance.
+   5. Now, I had the matrix which consisted of how similar each row is to every other row.
+   6. Each row represented a movie's id and by sorting the row values in descending order while keeping track of original row positions , we can get the top k movie_id similar to given movie_id
+   7. So now , given a movie name , convert name to respective id , look at that row_no==movie_id in the similarity matrix and choose the top k movie_id which have highest value. Then convert the movie_id to movie names and display them.
+   Every row of this matrix will be used to predict movies most similar to it
+
+
